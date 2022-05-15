@@ -26,6 +26,9 @@ public class HomePage extends BasePage {
     @FindBy(id = "oneid-iframe")
     private WebElement iFrameLogIn;
 
+    @FindBy(css = "#global-nav li[class=\"pillar watch\"]")
+    private WebElement buttonWatch;
+
     private WebElement headerUserMenuWelcomeMessage;
 
     private WebElement buttonUserMenuLogOut;
@@ -38,6 +41,10 @@ public class HomePage extends BasePage {
         return checkAttributeOfElement(sideLoginMenu, "style", "display: block;");
     }
 
+    public boolean isLeftLoginMenuNotVisible() {
+        return checkAttributeOfElement(sideLoginMenu, "style", "display: none;");
+    }
+
     public void hoverUserMenu() {
         hover(userMenu);
     }
@@ -46,8 +53,12 @@ public class HomePage extends BasePage {
         return checkIfElementIsDisplayed(userMenu);
     }
 
-    public BasePage clickButtonUserMenuLogin() {
+    public LoginSingUpIFrame clickButtonUserMenuLogin() {
         return clickOpenIFrame(buttonUserMenuLogIn, iFrameLogIn, new LoginSingUpIFrame(driver));
+    }
+
+    public WatchPage clickButtonWatch() {
+        return clickOpenNewPage(buttonWatch, new WatchPage(driver));
     }
 
 }

@@ -13,4 +13,8 @@ public class PageRequiredData {
 
     private String webPageName;
 
+    private String iFrameLogoName;
+
+    private String singUpTitle;
+
 }

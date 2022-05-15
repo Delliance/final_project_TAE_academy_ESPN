@@ -143,12 +143,7 @@ public class EventReporter implements WebDriverEventListener {
 
     @Override
     public void beforeGetText(WebElement webElement, WebDriver webDriver) {
-        try {
-            logger.info("Getting text from "+webElement.getText());
-        }
-        catch (Exception e){
-            logger.info("Getting text from "+webElement.getTagName());
-        }
+        logger.info("Getting text from "+webElement.getText());
     }
 
     @Override

@@ -120,15 +120,16 @@ public class BasePage {
      * @param element element to be clicked
      * @param page page you change after click
      * @return the page you change after click
+     * @param <Page> subclass of BasePage
      */
-    protected BasePage clickOpenNewPage(WebElement element, BasePage page) {
+    protected <Page extends BasePage>Page clickOpenNewPage(WebElement element, Page page) {
         wait.shortWait(element);
         element.click();
         return page;
     }
 
     /**
-     * Click on element and opena an IFrame
+     * Click on element and open an IFrame
      *
      * @author Daniel.Gonzalez
      *
@@ -136,12 +137,43 @@ public class BasePage {
      * @param iFrameElement IFrame web element to be displayed
      * @param iFrame IFrame page
      * @return IFrame
+     * @param <Page> subclass of BasePage
      */
-    protected BasePage clickOpenIFrame(WebElement element, WebElement iFrameElement, BasePage iFrame) {
+    protected <Page extends BasePage>Page clickOpenIFrame(WebElement element, WebElement iFrameElement, Page iFrame) {
         wait.shortWait(element);
         element.click();
         driver.switchTo().frame(iFrameElement);
         return iFrame;
+    }
+
+    /**
+     * Click on an element that closes the current IFrame
+     *
+     * @author Daniel.Gonzaelz
+     *
+     * @param element element to be clicked
+     */
+    protected void clickCloseIFrame(WebElement element) {
+        wait.shortWait(element);
+        element.click();
+        driver.switchTo().parentFrame();
+    }
+
+    /**
+     * Click on an element that closes the current IFrame and opens a new page
+     *
+     * @author Daniel.Gonzalez
+     *
+     * @param element element to be clicked
+     * @param page new page to be opened
+     * @return page
+     * @param <Page> subclass of BasePage
+     */
+    protected <Page extends BasePage>Page clickCloseIFrameAndOpenNewPage(WebElement element, Page page) {
+        wait.shortWait(element);
+        element.click();
+        driver.switchTo().parentFrame();
+        return page;
     }
 
     /**
@@ -180,8 +212,21 @@ public class BasePage {
      * @return if the element is displayed it will be true
      */
     protected boolean checkIfElementIsDisplayed(WebElement element) {
-        wait.shortWait(element);
+        wait.mediumWait(element);
         return element.isDisplayed();
+    }
+
+    /**
+     * Check if an element is enable
+     *
+     * @author Daniel.Gonzaez
+     *
+     * @param element element to be checked
+     * @return if the element is enabled it will return true
+     */
+    protected boolean checkIfElementIsEnabled(WebElement element) {
+        wait.shortWait(element);
+        return element.isEnabled();
     }
 
     /**
@@ -196,7 +241,16 @@ public class BasePage {
         actions.moveToElement(element).build().perform();
     }
 
-
+    /**
+     * Check the value of an element
+     *
+     * @author Daniel.Gonzalez
+     *
+     * @param element element to be checked
+     * @param attribute attribute of the element
+     * @param attributeValue value of the attribute
+     * @return if the attribute matches the input value returns true
+     */
     protected boolean checkAttributeOfElement(WebElement element, String attribute, String attributeValue) {
         wait.shortWait(element);
         try {

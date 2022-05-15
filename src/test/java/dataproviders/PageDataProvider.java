@@ -24,6 +24,8 @@ public class PageDataProvider {
         PageRequiredData data = PageRequiredData.builder()
                 .user(user)
                 .webPageName("ESPN")
+                .iFrameLogoName("Disney account")
+                .singUpTitle("Create Account")
                 .build();
         return new Object[][] {{data}};
     }
