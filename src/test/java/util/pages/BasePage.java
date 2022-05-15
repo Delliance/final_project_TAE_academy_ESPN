@@ -6,6 +6,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import  util.CustomWait;
 
+import java.util.List;
+
 public class BasePage {
 
     /** Driver */
@@ -25,7 +27,7 @@ public class BasePage {
      *
      * @author Daniel.Gonzalez
      *
-     * @param driver
+     * @param driver web driver to use
      */
     public BasePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -36,12 +38,26 @@ public class BasePage {
     }
 
     /**
-     * Go back to previous screen.
+     * Go back
      *
      * @author Daniel.Gonzalez
      */
     protected void goBack() {
         driver.navigate().back();
+    }
+
+    /**
+     * Go back to a different page
+     *
+     * @author DanielGonzalez
+     *
+     * @param page page you're going back to
+     * @return page you're going back to
+     * @param <Page> subclass of BasePage
+     */
+    protected <Page extends BasePage>Page goBackToPage(Page page) {
+        driver.navigate().back();
+        return page;
     }
 
     /**
@@ -258,6 +274,61 @@ public class BasePage {
             return true;
         }
         catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Check that at least one element of the specified type exists
+     *
+     * @author Daniel.Gonzalez
+     *
+     * @param elementList expected list of elements to check
+     * @return if at least one element exists returns true
+     */
+    protected boolean checkThatAtLeastOneElementExistsInList(List<WebElement> elementList) {
+        return elementList.size() > 0;
+    }
+
+    /**
+     * Number of elements of the specified type
+     *
+     * @author Daniel.Gonzalez
+     *
+     * @param elementList expected list of elements to count
+     * @return the number of elements in the list
+     */
+    protected int numberOfWebElements(List<WebElement> elementList) {
+        return elementList.size();
+    }
+
+    /**
+     * Check that the number of elements in a list matches the number of elements in another list
+     *
+     * @author Daniel.Gonzalez
+     *
+     * @param webElementList1 first element list to compare
+     * @param webElementList2 second element list to compare
+     * @return if both element lists have the same number of elements it returns true
+     */
+    protected boolean numberOfWebElementsMatchesOtherWebElements(List<WebElement> webElementList1, List<WebElement> webElementList2) {
+        return webElementList1.size() == webElementList2.size();
+    }
+
+    /**
+     * Check if the element exists in the webpage
+     *
+     * @author Daniel.Gonzalez
+     *
+     * @param element element to check
+     * @return if the element exists in the webpage returns true
+     */
+    protected boolean checkThatElementExistsInPage(WebElement element) {
+        try {
+            element.isDisplayed();
+            return true;
+        }
+        catch (NoSuchElementException e) {
             return false;
         }
     }

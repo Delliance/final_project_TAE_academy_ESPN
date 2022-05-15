@@ -5,6 +5,7 @@ import dataproviders.PageDataProvider;
 import listeners.EventReporter;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
@@ -16,12 +17,9 @@ public class BaseTest {
 
     protected HomePage homePage;
 
-    private PageDataProvider pageDataProvider; //TODO check if this is necessary here
-
     public Logger logger;
 
     public BaseTest() {
-        this.pageDataProvider = new PageDataProvider();
         this.logger = Logger.getLogger(BaseTest.class);
     }
 
@@ -42,7 +40,7 @@ public class BaseTest {
         driver.get(webPage);
     }
 
-//    @AfterTest
+    @AfterTest
     public void quit() {
         driver.quit();
     }

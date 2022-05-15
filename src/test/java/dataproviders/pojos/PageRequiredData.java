@@ -17,4 +17,8 @@ public class PageRequiredData {
 
     private String singUpTitle;
 
+    private String userMenuHeaderLoggedIn;
+
+    private String userMenuHeaderLoggedOut;
+
 }

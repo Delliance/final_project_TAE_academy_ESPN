@@ -29,8 +29,10 @@ public class HomePage extends BasePage {
     @FindBy(css = "#global-nav li[class=\"pillar watch\"]")
     private WebElement buttonWatch;
 
-    private WebElement headerUserMenuWelcomeMessage;
+    @FindBy(css = "#header-wrapper .display-user")
+    private WebElement headerUserMenu;
 
+    @FindBy(css = "#header-wrapper .global-user-container li:nth-child(9) a")
     private WebElement buttonUserMenuLogOut;
 
     public String getTextLogo() {
@@ -59,6 +61,14 @@ public class HomePage extends BasePage {
 
     public WatchPage clickButtonWatch() {
         return clickOpenNewPage(buttonWatch, new WatchPage(driver));
+    }
+
+    public String getHeaderUserMenuText() {
+        return getText(headerUserMenu);
+    }
+
+    public HomePage clickButtonUserMenuLogOut() {
+        return clickOpenNewPage(buttonUserMenuLogOut, new HomePage(driver));
     }
 
 }

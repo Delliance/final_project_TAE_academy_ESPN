@@ -50,7 +50,7 @@ public class CustomWait {
      */
     public void shortWait(WebElement element) {
         wait = new WebDriverWait(driver, SHORT_WAIT_SECONDS);
-        wait.until(ExpectedConditions.visibilityOf(element));
+        wait.until(ExpectedConditions.or(ExpectedConditions.visibilityOf(element), ExpectedConditions.invisibilityOf(element)));
     }
 
     /**
@@ -62,7 +62,7 @@ public class CustomWait {
      */
     public void normalWait(WebElement element) {
         wait = new WebDriverWait(driver, NORMAL_WAIT_SECONDS);
-        wait.until(ExpectedConditions.visibilityOf(element));
+        wait.until(ExpectedConditions.or(ExpectedConditions.visibilityOf(element), ExpectedConditions.invisibilityOf(element)));
     }
 
     /**
@@ -73,11 +73,11 @@ public class CustomWait {
      * @param element WebElement
      */
     public void mediumWait(WebElement element) {
-        fluentWait = new FluentWait<WebDriver>(driver)
+        fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(MEDIUM_WAIT_SECONDS))
                 .pollingEvery(Duration.ofSeconds(5))
                 .ignoring(NoSuchElementException.class);
-        fluentWait.until(ExpectedConditions.visibilityOf(element));
+        fluentWait.until(ExpectedConditions.or(ExpectedConditions.visibilityOf(element), ExpectedConditions.invisibilityOf(element)));
     }
 
     /**
@@ -88,11 +88,11 @@ public class CustomWait {
      * @param element WebElement
      */
     public void LongWait(WebElement element) {
-        fluentWait = new FluentWait<WebDriver>(driver)
+        fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(LONG_WAIT_SECONDS))
                 .pollingEvery(Duration.ofSeconds(5))
                 .ignoring(NoSuchElementException.class);
-        fluentWait.until(ExpectedConditions.visibilityOf(element));
+        fluentWait.until(ExpectedConditions.or(ExpectedConditions.visibilityOf(element), ExpectedConditions.invisibilityOf(element)));
     }
 
     /**
@@ -100,15 +100,11 @@ public class CustomWait {
      *
      * @author Daniel.Gonzalez
      *
-     * @param element
+     * @param element element to get text from
      */
     public void waitForTextToAppear(WebElement element) {
         //TODO check if this method works
-        wait.until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver driver) {
-                return element.getText().length() != 0;
-            }
-        });
+        wait.until((ExpectedCondition<Boolean>) driver -> element.getText().length() != 0);
     }
 
     /**

@@ -26,6 +26,8 @@ public class PageDataProvider {
                 .webPageName("ESPN")
                 .iFrameLogoName("Disney account")
                 .singUpTitle("Create Account")
+                .userMenuHeaderLoggedIn("Welcome" + user.getFirstName() + "!")
+                .userMenuHeaderLoggedOut("Welcome!")
                 .build();
         return new Object[][] {{data}};
     }

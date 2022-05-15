@@ -5,6 +5,7 @@ import dataproviders.pojos.PageRequiredData;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 import pages.HomePage;
+import pages.WatchPage;
 import pages.iframes.LoginSingUpIFrame;
 import util.tests.BaseTest;
 import static org.testng.Assert.*;
@@ -18,7 +19,7 @@ public class FinalTest extends BaseTest {
         logger.info("Checking that the logo of the home page is visible");
         assertEquals(homePage.getTextLogo(), data.getWebPageName(), "The text in the logo does not match, please check you're in the correct webpage");
         logger.info("Checking that you're not logged in");
-        assertTrue(homePage.isLeftLoginMenuVisible(), "The left menu is not visible, check that you're logged out");
+        assertTrue(homePage.isLeftLoginMenuVisible(), "The side menu is not visible, check that you're logged out");
         homePage.hoverUserMenu();
         logger.info("Checking that the hover menu was opened correctly");
         assertTrue(homePage.checkIfUserHoverMenuIsVisible(), "The hover menu is not visible");
@@ -51,24 +52,50 @@ public class FinalTest extends BaseTest {
         logger.info("Waiting for the home page to load");
         assertEquals(homePageAccountCreated.getTextLogo(), data.getWebPageName(), "The text in the logo does not match, please check you're in the correct webpage");
         logger.info("Checking that you're logged in");
-        assertTrue(homePageAccountCreated.isLeftLoginMenuNotVisible());
-
-
-//        logger.info("Checking that the logo of the home page is visible");
-//        assertTrue(homePage.checkLogoIsVisible()); //TODO: change this locator it only works in spanish
-//        logger.info("Sending the keys for the departure flight");
-//        homePage.sendKeyFromFlight("LAS"); //TODO: change this into a data provider
-//        homePage.clickFromLasVegas();
-//        homePage.sendKeyToFlight("BOG"); //TODO: change this into a data provider
-//        homePage.clickToBogota();
-//        homePage.clickDepartureDate();
-//        homePage.clickNextMonthInCalendar();
-//        homePage.clickDepartureDay15OfCurrentMonthPlusTwo();
-//        homePage.clickArrivalDate();
-//        homePage.clickNextMonthInCalendar();
-//        homePage.clickArrivalDay15OfCurrentMonthPlusFour();
-//        homePage.clickPassengers();
-//        homePage.clickAddAdult();
-//        homePage.clickSubmitButton();
+        assertTrue(homePageAccountCreated.isLeftLoginMenuNotVisible(), "The side menu is visible, check that you correctly logged in");
+        //start of step 5
+        WatchPage watchPage = homePageAccountCreated.clickButtonWatch();
+        logger.info("Checking that you correctly entered the Watch page");
+        assertTrue(watchPage.checkThatAtLeastOneCarouselIsPresent(), "There are not Carousels in the page, check that you correctly entered the Watch page");
+        assertTrue(watchPage.checkNumberOfCardsMatchesNumberOfCardTitles(), "The number of cards does not match the number of titles");
+        assertTrue(watchPage.checkNumberOfCardsMatchesNumberOfCardDescriptions(), "The number of cards does not match the number of descriptions");
+        //end of step 5
+        //start of step 6
+        watchPage.clickFirstCarouselSecondCard();
+        logger.info("Checking that the container box is displayed");
+        assertTrue(watchPage.checkThatContainerBoxIsDisplayed(), "The container box is not displayed, please check that the card was correctly clicked");
+        assertTrue(watchPage.checkThatContainerBoxCloseButtonIsDisplayed(), "The close container box button is not displayed, please check that the card was correctly clicked");
+        //end of step 6
+        //start of step 7
+        watchPage.clickContainerBoxCloseButton();
+        //end of step 7
+        logger.info("Checking that the container box is not displayed");
+        assertTrue(watchPage.checkThatContainerBoxIsClosed());
+        //start of step 8
+        HomePage homePageBackFromWatch = watchPage.goBackToHomePage();
+        logger.info("Waiting for the home page to load");
+        assertEquals(homePageBackFromWatch.getTextLogo(), data.getWebPageName(), "The text in the logo does not match, please check you're in the correct webpage");
+        logger.info("Checking that you're back at the home page while logged in");
+        assertTrue(homePageBackFromWatch.isLeftLoginMenuNotVisible(), "The side menu is visible, check that you correctly logged in");
+        //end of step 8
+        //start of step 9
+        logger.info("Checking that the user name in the webpage matches the input first name " + data.getUser().getFirstName());
+        homePageBackFromWatch.hoverUserMenu();
+        logger.info("Checking that the hover menu was opened correctly");
+        assertTrue(homePageBackFromWatch.checkIfUserHoverMenuIsVisible(), "The hover menu is not visible");
+        assertEquals(homePageBackFromWatch.getHeaderUserMenuText(), data.getUserMenuHeaderLoggedIn(), "The welcome message does not have the name of the user, check that you properly logged in");
+        //end of step 9
+        //start of step 10
+        HomePage homePageLoggedOut = homePageBackFromWatch.clickButtonUserMenuLogOut();
+        logger.info("Waiting for the home page to load");
+        assertEquals(homePageLoggedOut.getTextLogo(), data.getWebPageName(), "The text in the logo does not match, please check you're in the correct webpage");
+        logger.info("Checking that you're back to the home page logged out");
+        assertTrue(homePageLoggedOut.isLeftLoginMenuVisible(), "The side menu is not visible, check that you're logged out");
+        homePageLoggedOut.hoverUserMenu();
+        logger.info("Checking that the hover menu was opened correctly");
+        assertTrue(homePageLoggedOut.checkIfUserHoverMenuIsVisible());
+        assertEquals(homePageLoggedOut.getHeaderUserMenuText(), data.getUserMenuHeaderLoggedOut(), "The welcome message does not match, check that you properly logged out");
+        //end of step 10
+        logger.info("Congratulations! The test finished successfully");
     }
 }
