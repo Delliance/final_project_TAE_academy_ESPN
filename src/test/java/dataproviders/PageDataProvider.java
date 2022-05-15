@@ -1,18 +1,32 @@
 package dataproviders;
 
-import lombok.Getter;
+import dataproviders.pojos.PageRequiredData;
 import org.testng.annotations.DataProvider;
-import pojo.User;
+import dataproviders.pojos.User;
 
 import java.util.Random;
 
-public class UserData {
+public class PageDataProvider {
 
     private static User user;
 
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     private static final String ALPHABET_PASSWORD = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?";
+
+    /**
+     *
+     * @return information to create a random user and page information
+     */
+    @DataProvider(name = "pageData")
+    public Object[][] tesPageDataProvider() {
+        randomUser();
+        PageRequiredData data = PageRequiredData.builder()
+                .user(user)
+                .webPageName("ESPN")
+                .build();
+        return new Object[][] {{data}};
+    }
 
     public void randomUser() {
         if (user == null){
@@ -23,12 +37,6 @@ public class UserData {
                     .password(randomPasswordGenerator(15))
                     .build();
         }
-    }
-
-    @DataProvider(name = "randomUser")
-    public Object[][] randomUserDataProvider() {
-        randomUser();
-        return new Object[][] {{user}};
     }
 
     private String randomTextGenerator(int textLength) {
@@ -47,10 +55,5 @@ public class UserData {
             builder.append(ALPHABET_PASSWORD.charAt(random.nextInt(ALPHABET_PASSWORD.length())));
         }
         return builder.toString();
-    }
-
-    public User getUser() {
-        randomUser();
-        return user;
     }
 }

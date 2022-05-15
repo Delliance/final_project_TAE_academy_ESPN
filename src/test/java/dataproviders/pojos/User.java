@@ -1,4 +1,4 @@
-package pojo;
+package dataproviders.pojos;
 
 import lombok.*;
 

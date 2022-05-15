@@ -31,6 +31,9 @@ public class CustomWait {
 
     /**
      * 1 second wait
+     *
+     * @author Daniel.Gonzalez
+     *
      * @param element WebElement
      */
     public void minWait(WebElement element) {
@@ -40,6 +43,9 @@ public class CustomWait {
 
     /**
      * 5 second wait
+     *
+     * @author Daniel.Gonzalez
+     *
      * @param element WebElement
      */
     public void shortWait(WebElement element) {
@@ -49,6 +55,9 @@ public class CustomWait {
 
     /**
      * 15 second wait
+     *
+     * @author Daniel.Gonzalez
+     *
      * @param element WebElement
      */
     public void normalWait(WebElement element) {
@@ -58,6 +67,9 @@ public class CustomWait {
 
     /**
      * 30 second wait
+     *
+     * @author Daniel.Gonzalez
+     *
      * @param element WebElement
      */
     public void mediumWait(WebElement element) {
@@ -70,6 +82,9 @@ public class CustomWait {
 
     /**
      * 60 second wait
+     *
+     * @author Daniel.Gonzalez
+     *
      * @param element WebElement
      */
     public void LongWait(WebElement element) {
@@ -80,6 +95,13 @@ public class CustomWait {
         fluentWait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    /**
+     * Wait until text has any number of letter > 0
+     *
+     * @author Daniel.Gonzalez
+     *
+     * @param element
+     */
     public void waitForTextToAppear(WebElement element) {
         //TODO check if this method works
         wait.until(new ExpectedCondition<Boolean>() {
@@ -87,6 +109,20 @@ public class CustomWait {
                 return element.getText().length() != 0;
             }
         });
+    }
+
+    /**
+     * Wait until the parameter of an element is the specified one
+     *
+     * @author Daniel.Gonzalez
+     *
+     * @param element element to check attribute of
+     * @param attribute attribute of the element
+     * @param attributeValue value of the attribute
+     */
+    public void expectedCondition(WebElement element, String attribute, String attributeValue) {
+        wait = new WebDriverWait(driver, SHORT_WAIT_SECONDS);
+        wait.until(ExpectedConditions.attributeToBe(element, attribute, attributeValue));
     }
 
 }

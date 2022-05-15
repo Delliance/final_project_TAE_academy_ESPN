@@ -1,7 +1,7 @@
 package util.tests;
 
 import com.taeacademy.Driver;
-import dataproviders.UserData;
+import dataproviders.PageDataProvider;
 import listeners.EventReporter;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -16,12 +16,12 @@ public class BaseTest {
 
     protected HomePage homePage;
 
-    private UserData userData; //TODO check if this is necessary here
+    private PageDataProvider pageDataProvider; //TODO check if this is necessary here
 
     public Logger logger;
 
     public BaseTest() {
-        this.userData = new UserData();
+        this.pageDataProvider = new PageDataProvider();
         this.logger = Logger.getLogger(BaseTest.class);
     }
 

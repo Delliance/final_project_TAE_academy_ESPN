@@ -10,6 +10,10 @@ public class LoginSingUpIFrame extends BasePage {
         super(driver);
     }
 
+    private WebElement buttonLogin;
+
+    private WebElement buttonSingUp;
+
     private WebElement titleSingUp;
 
     private WebElement inputFirstName;
@@ -20,7 +24,7 @@ public class LoginSingUpIFrame extends BasePage {
 
     private WebElement inputPassword;
 
-    private WebElement buttonSingUp;
+    private WebElement buttonConfirmSingUp;
 
     private WebElement buttonClose;
 }
