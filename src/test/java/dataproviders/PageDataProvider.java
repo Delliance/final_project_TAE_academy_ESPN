@@ -15,8 +15,11 @@ public class PageDataProvider {
     private static final String ALPHABET_PASSWORD = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?";
 
     /**
+     * Information required for the test of the webpage for more info check PageRequiredData.java
      *
-     * @return information to create a random user and page information
+     * @author Daniel.Gonzalez
+     *
+     * @return data provider for the test with the page information
      */
     @DataProvider(name = "pageData")
     public Object[][] tesPageDataProvider() {
@@ -32,6 +35,9 @@ public class PageDataProvider {
         return new Object[][] {{data}};
     }
 
+    /**
+     * Method to create a user with random information
+     */
     public void randomUser() {
         if (user == null){
             user = User.builder()
@@ -43,6 +49,14 @@ public class PageDataProvider {
         }
     }
 
+    /**
+     * Method to generate a random String with the alphabet and numbers
+     *
+     * @author Daniel.Gonzalez
+     *
+     * @param textLength length of the random String
+     * @return random String of specified length
+     */
     private String randomTextGenerator(int textLength) {
         Random random = new Random();
         StringBuilder builder = new StringBuilder(textLength);
@@ -52,6 +66,14 @@ public class PageDataProvider {
         return builder.toString();
     }
 
+    /**
+     * Method to generate a random String with all letters and symbols available for passwords
+     *
+     * @author Daniel.Gonzalez
+     *
+     * @param passwordLength length of the random String
+     * @return random String of specified length
+     */
     private String randomPasswordGenerator(int passwordLength) {
         Random random = new Random();
         StringBuilder builder = new StringBuilder(passwordLength);

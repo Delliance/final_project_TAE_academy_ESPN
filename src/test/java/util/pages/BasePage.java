@@ -312,7 +312,7 @@ public class BasePage {
      * @return if both element lists have the same number of elements it returns true
      */
     protected boolean numberOfWebElementsMatchesOtherWebElements(List<WebElement> webElementList1, List<WebElement> webElementList2) {
-        return webElementList1.size() == webElementList2.size();
+        return numberOfWebElements(webElementList1) == numberOfWebElements(webElementList2);
     }
 
     /**
