@@ -4,4 +4,4 @@
 
 #### Notes:
 
-The test currently only runs in Chrome, in firefox it presents an exception with the driver
+The test currently only runs in Chrome, in firefox some of the methods do not work.
